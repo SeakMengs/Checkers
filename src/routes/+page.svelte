@@ -33,7 +33,8 @@
 <!-- HTML goes here -->
 <div class="container">
         <div class="board">
-            {#each pieces as arrPiece}
+            {#each pieces as arrPiece, j}
+            <div class="board-{j} board-row">
                 {#each arrPiece as piece, i }
                     {#if piece == 1 || piece == 2}
                         <img class="piece-board piece-{piece}" src={src.cat} alt="cat">
@@ -43,6 +44,7 @@
                         <!-- <div class="piece-board piece-{piece}"></div> -->
                     {/if}
                 {/each}
+            </div>
             {/each}
         </div>
 </div>
@@ -54,17 +56,20 @@
 <!-- Style goes here  -->
 <style>
     .container {
-        width: 80%;
+        width: 100%;
         height: 100vh;
         margin: 0 auto;
     }
 
     .board {
-        width: 50%;
-        display: grid;
-        /* make grid max 10 */
-        grid-template-columns: repeat(10, 50px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .board-row {
+        display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .piece-board {
@@ -72,19 +77,15 @@
     }
 
     .piece-0 {
-        width: 50px;
-        height: 50px;
+        width: 5%;
+        height: auto;
         background: rgb(77, 56, 56);
     }
 
     .piece-2, .piece-1 {
-        width: 50px;
-        height: 50px;
+        width: 5%;
+        height: auto;
         background: wheat;
     }
 
-    img {
-        width: 50px;
-        height: auto;
-    }
 </style>
