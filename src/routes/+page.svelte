@@ -52,22 +52,43 @@
         document.querySelectorAll(".pieces").forEach((piece) => {
         piece.classList.remove("selected");
         });
+
+        // reset player turn
+        player1Turn = true;
     }
 
-    let player1Turn = false;
+    let player1Turn = true;
 
+    /**
+     * @param {any} event
+     */
+    function validateSelected(event) {
+        if (event.target.classList.contains("selected")) {
+                // remove selected class
+                event.target.classList.remove("selected");
+            } else {
+                document.querySelectorAll(".pieces").forEach((piece) => {
+                    piece.classList.remove("selected")
+                });
+                event.target.classList.add("selected");
+        }
+    }
 
     /**
      * @param {any} event
      */
     function selectPiece(event) {
         // remove selected class from all pieces
-        document.querySelectorAll(".pieces").forEach((piece) => {
-            piece.classList.remove("selected");
-        });
         
-        event.target.classList.toggle("selected");
+        // check and prevent player 1 from selecting player two
+        if (player1Turn == true && event.target.classList.contains("player-1")) {
+            // check if current piece is selected
+            validateSelected(event);
+        } else if (player1Turn == false && event.target.classList.contains("player-2")) {
+            validateSelected(event);
+        }
     }
+
 </script>
 <!-- Script end here -->
 
@@ -84,13 +105,13 @@
                     {#if pieces[i][j] == 1 || pieces[i][j] == 3}
                         <button
                             class="pieces piece-{i}-{j} player-1"
-                            class:king1={pieces[i][j] == 3}
+                            class:king={pieces[i][j] == 3}
                             on:click={selectPiece}
                         />
                     {:else if pieces[i][j] == 2 || pieces[i][j] == 4}
                         <button
                             class="pieces piece-{i}-{j} player-2"
-                            class:king2={pieces[i][j] == 4}
+                            class:king={pieces[i][j] == 4}
                             on:click={selectPiece}
                         />
                     {/if}
@@ -144,11 +165,26 @@
     }
     
     .player-2 {
-        background-color: rgb(192, 164, 164);
+        background-color: rgb(248, 147, 129);
     }
     
     .selected {
         box-shadow: 0 0 10px 5px #ffffff;
+    }
+
+    /* responsive for mobile */
+    @media (max-width: 768px) {
+        .board {
+            grid-template-columns: repeat(10, 2.2rem);
+        }
+        .cell {
+            width: 2.2rem;
+            height: 2.2rem;
+        }
+        .pieces {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
     }
     </style>
 <!-- Style end here  -->
