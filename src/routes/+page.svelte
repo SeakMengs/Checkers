@@ -182,8 +182,8 @@
             height: 2.2rem;
         }
         .pieces {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1.3rem;
+            height: 1.3rem;
         }
     }
     </style>
