@@ -65,9 +65,10 @@
     // remove all possible move class
     function clearPossibleMove() {
         document.querySelectorAll(".possible-move").forEach((piece) => {
+            // hide movable element
+            // @ts-ignore
+            piece.children[0].style.display = "none";
             piece.classList.remove("possible-move");
-            // remove button
-            piece.innerHTML = "";
         });
     }
 
@@ -122,6 +123,7 @@
         if (element != null) {
             element.classList.add("possible-move");
             // display child element
+            element.children[0].style.display = "block";
         }
     }
 
