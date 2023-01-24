@@ -11,7 +11,7 @@
         dog: "favicon.jpg",
     };
 
-    let player1Turn = false;
+    let player1Turn = true;
 
     const BOARD = [
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -66,6 +66,8 @@
     function clearPossibleMove() {
         document.querySelectorAll(".possible-move").forEach((piece) => {
             piece.classList.remove("possible-move");
+            // remove button
+            piece.innerHTML = "";
         });
     }
 
@@ -113,6 +115,16 @@
         }
     }
 
+    /**
+     * @param {any} element
+     */
+    function addPossibleMove(element) {
+        if (element != null) {
+            element.classList.add("possible-move");
+            // display child element
+        }
+    }
+
     // calculate possible move for selected pieces
     /**
      * @param {any} event
@@ -148,69 +160,46 @@
         // check for player one to go down only if their selected piece is not a king
         if (player1Turn == true &&event.target.classList.contains("player-1")) {
             // calculate down left
-            if (goDown <= 7 && pieces[goDown][goLeft] == 0 && goLeft >= 0) {
-                if (elementGoDownLeft != null) {
-                    elementGoDownLeft.classList.add("possible-move");
-                }
-            }
+            addPossibleMove(elementGoDownLeft)
 
             // calculate down right
-            if (goDown <= 7 && pieces[goDown][goRight] == 0 && goRight <= 9) {
-                if (elementGoDownRight != null) {
-                    elementGoDownRight.classList.add("possible-move");
-                }
-            }
-            
+            addPossibleMove(elementGoDownRight)
+
             // if the selected piece is a king then we calculate the possible move from all direction
             if (event.target.classList.contains("king")) {
                 // calculate up left
-                if (goUp >= 0 && pieces[goUp][goLeft] == 0 && goLeft >= 0) {
-                    if (elementGoUpLeft != null) {
-                        elementGoUpLeft.classList.add("possible-move");
-                    }
-                }
+                addPossibleMove(elementGoUpLeft)
 
                 // calculate up right
-                if (goUp >= 0 && pieces[goUp][goRight] == 0 && goRight <= 9) {
-                    if (elementGoUpRight != null) {
-                        elementGoUpRight.classList.add("possible-move");
-                    }
-                }
+                addPossibleMove(elementGoUpRight)
             }
 
         } else if (player1Turn == false && event.target.classList.contains("player-2")) {
             // calculate up left
-            if (goUp >= 0 && pieces[goUp][goLeft] == 0 && goLeft >= 0) {
-                if (elementGoUpLeft != null) {
-                    elementGoUpLeft.classList.add("possible-move");
-                }
-            }
+            addPossibleMove(elementGoUpLeft)
 
             // calculate up right
-            if (goUp >= 0 && pieces[goUp][goRight] == 0 && goRight <= 9) {
-                if (elementGoUpRight != null) {
-                    elementGoUpRight.classList.add("possible-move");
-                }
-            }
+            addPossibleMove(elementGoUpRight)
 
             // if the selected piece is a king then we calculate the possible move from all direction
             if (event.target.classList.contains("king")) {
                 // calculate down left
-                if (goDown <= 7 && pieces[goDown][goLeft] == 0 && goLeft >= 0) {
-                    if (elementGoDownLeft != null) {
-                        elementGoDownLeft.classList.add("possible-move");
-                    }
-                }
+                addPossibleMove(elementGoDownLeft)
+
 
                 // calculate down right
-                if (goDown <= 7 && pieces[goDown][goRight] == 0 && goRight <= 9) {
-                    if (elementGoDownRight != null) {
-                        elementGoDownRight.classList.add("possible-move");
-                    }
-                }
+                addPossibleMove(elementGoDownRight)
             }
         }
     }
+
+    /**
+     * @param {any} event
+     */
+    function move(event) {
+
+    }
+
 </script>
 <!-- Script end here -->
 
@@ -236,6 +225,8 @@
                             class:king={pieces[i][j] == 4}
                             on:click={preventSelectPiece}
                         />
+                    {:else}
+                        <button class="movable" style="display: none;"></button>
                     {/if}
                 </div>
             {/each}
@@ -296,6 +287,14 @@
 
     .possible-move {
         background-color: aquamarine;
+    }
+
+    .movable {
+        width: 4rem;
+        height: 4rem;
+        border: none;
+        border-radius: 100%;
+        background-color: #ee1b24;
     }
 
     /* responsive for mobile */
