@@ -62,6 +62,10 @@
         player1Turn = true;
     }
 
+    function player2() {
+        player1Turn = !player1Turn;
+    }
+
     // remove all possible move class
     function clearPossibleMove() {
         document.querySelectorAll(".possible-move").forEach((piece) => {
@@ -121,6 +125,12 @@
      */
     function addPossibleMove(element) {
         if (element != null) {
+
+            // check if element is a piece, if so we stop the function
+            if (element.children[0].classList.contains("pieces")) {
+                return;
+            }
+
             element.classList.add("possible-move");
             // display child element
             element.children[0].style.display = "block";
@@ -160,7 +170,7 @@
         let elementGoUpRight = document.querySelector(`.mn-${goUp}-${goRight}`)
 
         // check for player one to go down only if their selected piece is not a king
-        if (player1Turn == true &&event.target.classList.contains("player-1")) {
+        if (player1Turn == true && event.target.classList.contains("player-1")) {
             // calculate down left
             addPossibleMove(elementGoDownLeft)
 
@@ -235,6 +245,8 @@
         {/each}
     </div>
     <button on:click={resetGame}>Restart the game</button>
+    <button on:click={player2}>Change player</button>
+
 </div>
 <!-- HTML end here -->
 
