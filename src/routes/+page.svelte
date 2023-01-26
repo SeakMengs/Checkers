@@ -62,7 +62,7 @@
         player1Turn = true;
     }
 
-    function player2() {
+    function switchPlayer() {
         player1Turn = !player1Turn;
     }
 
@@ -238,7 +238,7 @@
         {/each}
     </div>
     <button on:click={resetGame}>Restart the game</button>
-    <button on:click={player2}>Change player</button>
+    <button on:click={switchPlayer}>Change player</button>
 
 </div>
 <!-- HTML end here -->
@@ -291,17 +291,14 @@
     .selected {
         box-shadow: 0 0 10px 5px #ffffff;
     }
-
-    .possible-move {
-        background-color: aquamarine;
-    }
-
+    
     .movable {
         width: 4rem;
         height: 4rem;
         border: none;
         border-radius: 100%;
-        background-color: #ee1b24;
+        background-color: rgba(160, 50, 50, 0.0);
+        box-shadow: 0 0 10px 5px #3b1f1f;
     }
 
     /* responsive for mobile */
