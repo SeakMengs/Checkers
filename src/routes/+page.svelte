@@ -104,17 +104,11 @@
      */
     function preventSelectPiece(event) {
         // check and prevent player 1 from selecting player two
-        if (
-            player1Turn == true &&
-            event.target.classList.contains("player-1")
-        ) {
+        if (player1Turn == true &&event.target.classList.contains("player-1")) {
             combinatorics(event);
             // check if current piece is selected
             selectAndUnselect(event);
-        } else if (
-            player1Turn == false &&
-            event.target.classList.contains("player-2")
-        ) {
+        } else if (player1Turn == false && event.target.classList.contains("player-2")) {
             combinatorics(event);
             selectAndUnselect(event);
         }
@@ -197,7 +191,6 @@
             if (event.target.classList.contains("king")) {
                 // calculate down left
                 addPossibleMove(elementGoDownLeft)
-
 
                 // calculate down right
                 addPossibleMove(elementGoDownRight)
