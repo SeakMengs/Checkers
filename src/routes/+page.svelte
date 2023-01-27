@@ -392,8 +392,8 @@
     }
     
     .movable {
-        width: 4rem;
-        height: 4rem;
+        min-width: 4rem;
+        min-height: 4rem;
         border: none;
         border-radius: 100%;
         background-color: rgba(160, 50, 50, 0);
