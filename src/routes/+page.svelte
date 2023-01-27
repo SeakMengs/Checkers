@@ -7,6 +7,8 @@
     };
 
     let player1Turn = true;
+    let playerOneScore = 0;
+    let playerTwoScore = 0;
 
     const BOARD = [
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -21,16 +23,28 @@
 
     // give default pieces position (discrete math usage: state machine)
     // 1 = player 1, 2 = player 2, 0 = empty, 3 = player 1 king, 4 = player 2 king
+    // let pieces = [
+    //     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    //     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+    //     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //     [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
+    //     [0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+    //     [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
+    // ];
     let pieces = [
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
         [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
         [0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
         [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
     ];
+
+    checkPlayerScore()
 
     // reset pieces to default
     function resetGame() {
@@ -55,11 +69,27 @@
 
         // reset player turn
         player1Turn = true;
+        checkPlayerScore()
     }
 
     // switch player turn
     function switchPlayer() {
         player1Turn = !player1Turn;
+    }
+
+    function checkPlayerScore() {
+        playerOneScore = 0
+        playerTwoScore = 0
+
+        for (let i = 0; i < pieces.length; i++) {
+            for (let j = 0; j < pieces[i].length; j++) {
+                if (pieces[i][j] == 1 || pieces[i][j] == 3) {
+                    playerOneScore++
+                } else if (pieces[i][j] == 2 || pieces[i][j] == 4) {
+                    playerTwoScore++
+                }
+            }
+        }
     }
 
     // remove all possible move class
@@ -121,12 +151,65 @@
 
     /**
      * @param {any} element
+     * @param {string | undefined} [move]
      */
-    function addPossibleMove(element) {
+    function checkKillable(element, move) {
+        let index = element.classList[1].split("-");
+        let newElement = null;
+
+        if (move == 'goDownLeft') {
+            newElement = document.querySelectorAll(`.mn-${parseInt(index[1]) + 1}-${parseInt(index[2]) - 1}`);
+        } else if (move == 'goDownRight') {
+            newElement = document.querySelectorAll(`.mn-${parseInt(index[1]) + 1}-${parseInt(index[2]) + 1}`);
+        } else if (move == 'goUpLeft') {
+            newElement = document.querySelectorAll(`.mn-${parseInt(index[1]) - 1}-${parseInt(index[2]) - 1}`);
+        } else if (move == 'goUpRight') {
+            newElement = document.querySelectorAll(`.mn-${parseInt(index[1]) - 1}-${parseInt(index[2]) + 1}`);
+        }
+
+        if (newElement == null) {
+            return false;
+        }
+
+        return newElement;
+    }
+
+    /**
+     * @param {any} element
+     * @param {string | undefined} [move]
+     */
+    function addPossibleMove(element, move) {
         if (element != null) {
-            // check if element is a piece, if so we stop the function
+            // check if element is a piece, if so we check kill move, if no kill possible we stop the function
             if (element.children[0].classList.contains("pieces")) {
-                return;
+                let oldElement = element;
+                /**
+                 * @type {any[]}
+                 */
+                let index = []
+
+                if (checkKillable(element, move) != false) {
+                    element = checkKillable(element, move);
+                    element = element[0];
+                }
+
+                if (element == null) {
+                    return
+                }
+
+                index = element.classList[1].split("-");
+
+                // check if the position is piece, if peace we stop the function
+                if (pieces[index[1]][index[2]] != 0) {
+                    return
+                }
+                // if the piece is the same as player piece we stop the function
+                if (player1Turn == true && oldElement.children[0].classList.contains("player-1")) {
+                    return
+                } else if (player1Turn == false && oldElement.children[0].classList.contains("player-2")) {
+                    return
+                }
+                
             }
 
             element.classList.add("possible-move");
@@ -169,14 +252,17 @@
         let goLeft = currentCol - 1;
         let goRight = currentCol + 1;
 
-        // create variable to store element go to left, right, up, down
+        // create variable to store element go to left, right, up, down (for readability)
         let elementGoDownLeft = document.querySelector(
             `.mn-${goDown}-${goLeft}`
         );
+
         let elementGoDownRight = document.querySelector(
             `.mn-${goDown}-${goRight}`
         );
+
         let elementGoUpLeft = document.querySelector(`.mn-${goUp}-${goLeft}`);
+
         let elementGoUpRight = document.querySelector(`.mn-${goUp}-${goRight}`);
 
         // create the variable to avoid long code
@@ -186,33 +272,33 @@
         // check for player one to go down only if their selected piece is not a king
         if (player1Turn == true && containPlayer1) {
             // calculate down left
-            addPossibleMove(elementGoDownLeft);
+            addPossibleMove(elementGoDownLeft, 'goDownLeft');
 
             // calculate down right
-            addPossibleMove(elementGoDownRight);
+            addPossibleMove(elementGoDownRight, 'goDownRight');
 
             // if the selected piece is a king then we calculate the possible move from all direction
             if (event.target.classList.contains("king")) {
                 // calculate up left
-                addPossibleMove(elementGoUpLeft);
+                addPossibleMove(elementGoUpLeft, 'goUpLeft');
 
                 // calculate up right
-                addPossibleMove(elementGoUpRight);
+                addPossibleMove(elementGoUpRight, 'goUpRight');
             }
         } else if (player1Turn == false && containPlayer2) {
             // calculate up left
-            addPossibleMove(elementGoUpLeft);
+            addPossibleMove(elementGoUpLeft, 'goUpLeft');
 
             // calculate up right
-            addPossibleMove(elementGoUpRight);
+            addPossibleMove(elementGoUpRight, 'goUpRight');
 
             // if the selected piece is a king then we calculate the possible move from all direction
             if (event.target.classList.contains("king")) {
                 // calculate down left
-                addPossibleMove(elementGoDownLeft);
+                addPossibleMove(elementGoDownLeft, 'goDownLeft');
 
                 // calculate down right
-                addPossibleMove(elementGoDownRight);
+                addPossibleMove(elementGoDownRight, 'goDownRight');
             }
         }
     }
@@ -241,6 +327,8 @@
      * @param {any} event
      */
     function move(event) {
+        console.log("Move function called")
+
         /**
          * @type {string[]}
          */
@@ -337,8 +425,8 @@
             {/each}
         {/each}
     </div>
+    <span>Player one {playerOneScore} - {playerTwoScore} Player two</span>
     <button on:click={resetGame}>Restart the game</button>
-    <button on:click={switchPlayer}>Change player</button>
 </div>
 <!-- HTML end here -->
 
@@ -391,24 +479,10 @@
         box-shadow: 0 0 10px 5px #ffffff;
     }
     
-    /* responsive for mobile */
-    @media (max-width: 768px) {
-        .board {
-            grid-template-columns: repeat(10, 2.2rem);
-        }
-        .cell {
-            width: 2.2rem;
-            height: 2.2rem;
-        }
-        .pieces {
-            width: 1.3rem;
-            height: 1.3rem;
-        }
-        
-        .movable {
-            width: 1.3rem;
-            height: 1.3rem;
-        }
+    span {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
     }
     </style>
 <!-- Style end here  -->
