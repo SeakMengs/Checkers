@@ -31,6 +31,27 @@
 			background-color: rgba(160, 50, 50, 0);
 			box-shadow: 0 0 10px 5px #3b1f1f;
 		}
+
+		@media (max-width: 768px) {
+			.board {
+				grid-template-columns: repeat(10, 2.2rem);
+			}
+
+			.cell {
+				width: 2.2rem;
+				height: 2.2rem;
+			}
+
+			.pieces {
+				width: 1.3rem;
+				height: 1.3rem;
+			}
+
+			.movable {
+				width: 1.3rem;
+				height: 1.3rem;
+			}
+		}
 	</style>
 </head>
 

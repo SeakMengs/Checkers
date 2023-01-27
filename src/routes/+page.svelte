@@ -391,7 +391,6 @@
         box-shadow: 0 0 10px 5px #ffffff;
     }
     
-    
     /* responsive for mobile */
     @media (max-width: 768px) {
         .board {
