@@ -301,6 +301,8 @@
         }
         clearPossibleMove()
         switchPlayer()
+        
+        // check if the player has won
     }
 
 </script>
