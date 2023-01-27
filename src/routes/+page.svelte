@@ -63,8 +63,8 @@
     }
 
     // remove all possible move class
-    function clearPossibleMove() {
-        document.querySelectorAll(".possible-move").forEach((piece) => {
+    function clearPossibleMove(className = "possible-move") {
+        document.querySelectorAll(className).forEach((piece) => {
             // change child class from hiddenMovable to movable
             piece.children[0].classList.remove("movable");
             piece.children[0].classList.add("hiddenMovable");
@@ -134,6 +134,9 @@
             // change child class from hiddenMovable to movable
             element.children[0].classList.remove("hiddenMovable");
             element.children[0].classList.add("movable");
+            
+            // add move function
+            element.children[0].onclick = move;
 
             // display child element
             element.children[0].style.display = "block";
@@ -223,13 +226,12 @@
         // get their children
         let element = document.querySelector(`.mn-${m}-${n}`)?.children[0]
 
-        // find index of class that contain piece- and split it to get find selected piece origin
+        // check if it's a selected piece
         if (element != null) {
-            element.classList.forEach((/** @type {string} */ className) => {
-                if (className.includes("piece-")) {
-                    return true
-                }
-            });
+            if (element.classList.contains("selected")) {
+                console.log("Found a piece at location " + m.toString() + ", " + n.toString())
+                return true
+            }
         }
 
         return false
@@ -238,29 +240,58 @@
     /**
      * @param {any} event
      */
+    // function move(event) {
+    //     /**
+    //      * @type {string[]}
+    //      */
+    //     let index = []
+
+    //     // find index of parent element class that contain mn- and split it to get its position in the board
+    //     event.target.parentElement.classList.forEach((/** @type {string} */ className) => {
+    //         if (className.includes("mn-")) {
+    //             index = className.split("-")
+    //         }
+    //     })
+
+    //     // index[1] = current row, index[2] = current column
+    //     let currentRow = parseInt(index[1]);
+    //     let currentCol = parseInt(index[2]);
+
+    //     // [0] = up left, [1] = up right, [2] = down left, [3] = down right
+    //     let findSelectedOrigin = [
+    //         findSelectedLocation(currentRow - 1, currentCol - 1),
+    //         findSelectedLocation(currentRow - 1, currentCol + 1),
+    //         findSelectedLocation(currentRow + 1, currentCol - 1),
+    //         findSelectedLocation(currentRow + 1, currentCol + 1),
+    //     ]
+
+    //     let selectedIndex = NaN
+    //     for (let i = 0; i < findSelectedOrigin.length; i++) {
+    //         if (findSelectedOrigin[i] == true) {
+    //             // copy classlist to movable piece and change selected class to movable
+    //             event.target.classList = document.querySelector(`.mn-${currentRow - 1}-${currentCol - 1}`).children[0].classList
+    //             event.target.classList.remove("selected")
+
+    //             if (i == 0) {
+    //                 event.target.classList.add("mn-" + (currentRow - 1).toString() + "-" + (currentCol - 1).toString())
+    //                 clearPossibleMove('mn-' + (currentRow - 1).toString() + '-' + (currentCol - 1).toString())
+    //             } else if (i == 1) {
+    //                 event.target.classList.add("mn-" + (currentRow - 1).toString() + "-" + (currentCol + 1).toString())
+    //                 clearPossibleMove('mn-' + (currentRow - 1).toString() + '-' + (currentCol + 1).toString())
+    //             } else if (i == 2) {
+    //                 event.target.classList.add("mn-" + (currentRow + 1).toString() + "-" + (currentCol - 1).toString())
+    //                 clearPossibleMove('mn-' + (currentRow + 1).toString() + '-' + (currentCol - 1).toString())
+    //             } else if (i == 3) {
+    //                 event.target.classList.add("mn-" + (currentRow + 1).toString() + "-" + (currentCol + 1).toString())
+    //                 clearPossibleMove('mn-' + (currentRow + 1).toString() + '-' + (currentCol + 1).toString())
+    //             }
+    //             break
+    //         }
+    //     }
+    
+    // }
     function move(event) {
-        /**
-         * @type {string[]}
-         */
-        let index = []
 
-        // find index of class that contain piece- and split it to get its position in the board
-        event.target.classList.forEach((/** @type {string} */ className) => {
-            if (className.includes("piece-")) {
-                index = className.split("-");
-            }
-        });
-
-        // index[1] = current row, index[2] = current column
-        let currentRow = parseInt(index[1]);
-        let currentCol = parseInt(index[2]);
-
-        let findSelectedOrigin = {
-            upLeft: findSelectedLocation(currentRow - 1, currentCol - 1),
-            upRight: findSelectedLocation(currentRow - 1, currentCol + 1),
-            downLeft: findSelectedLocation(currentRow + 1, currentCol - 1),
-            downRight: findSelectedLocation(currentRow + 1, currentCol + 1),
-        }
     }
 </script>
 <!-- Script end here -->
