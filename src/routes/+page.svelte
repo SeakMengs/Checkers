@@ -391,14 +391,6 @@
         box-shadow: 0 0 10px 5px #ffffff;
     }
     
-    .movable {
-        min-width: 4rem;
-        min-height: 4rem;
-        border: none;
-        border-radius: 100%;
-        background-color: rgba(160, 50, 50, 0);
-        box-shadow: 0 0 10px 5px #3b1f1f;
-    }
     
     /* responsive for mobile */
     @media (max-width: 768px) {
