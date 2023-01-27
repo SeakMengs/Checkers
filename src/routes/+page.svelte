@@ -63,8 +63,8 @@
     }
 
     // remove all possible move class
-    function clearPossibleMove(className = "possible-move") {
-        document.querySelectorAll(className).forEach((piece) => {
+    function clearPossibleMove() {
+        document.querySelectorAll('.possible-move').forEach((piece) => {
             // change child class from hiddenMovable to movable
             piece.children[0].classList.remove("movable");
             piece.children[0].classList.add("hiddenMovable");
@@ -240,59 +240,69 @@
     /**
      * @param {any} event
      */
-    // function move(event) {
-    //     /**
-    //      * @type {string[]}
-    //      */
-    //     let index = []
-
-    //     // find index of parent element class that contain mn- and split it to get its position in the board
-    //     event.target.parentElement.classList.forEach((/** @type {string} */ className) => {
-    //         if (className.includes("mn-")) {
-    //             index = className.split("-")
-    //         }
-    //     })
-
-    //     // index[1] = current row, index[2] = current column
-    //     let currentRow = parseInt(index[1]);
-    //     let currentCol = parseInt(index[2]);
-
-    //     // [0] = up left, [1] = up right, [2] = down left, [3] = down right
-    //     let findSelectedOrigin = [
-    //         findSelectedLocation(currentRow - 1, currentCol - 1),
-    //         findSelectedLocation(currentRow - 1, currentCol + 1),
-    //         findSelectedLocation(currentRow + 1, currentCol - 1),
-    //         findSelectedLocation(currentRow + 1, currentCol + 1),
-    //     ]
-
-    //     let selectedIndex = NaN
-    //     for (let i = 0; i < findSelectedOrigin.length; i++) {
-    //         if (findSelectedOrigin[i] == true) {
-    //             // copy classlist to movable piece and change selected class to movable
-    //             event.target.classList = document.querySelector(`.mn-${currentRow - 1}-${currentCol - 1}`).children[0].classList
-    //             event.target.classList.remove("selected")
-
-    //             if (i == 0) {
-    //                 event.target.classList.add("mn-" + (currentRow - 1).toString() + "-" + (currentCol - 1).toString())
-    //                 clearPossibleMove('mn-' + (currentRow - 1).toString() + '-' + (currentCol - 1).toString())
-    //             } else if (i == 1) {
-    //                 event.target.classList.add("mn-" + (currentRow - 1).toString() + "-" + (currentCol + 1).toString())
-    //                 clearPossibleMove('mn-' + (currentRow - 1).toString() + '-' + (currentCol + 1).toString())
-    //             } else if (i == 2) {
-    //                 event.target.classList.add("mn-" + (currentRow + 1).toString() + "-" + (currentCol - 1).toString())
-    //                 clearPossibleMove('mn-' + (currentRow + 1).toString() + '-' + (currentCol - 1).toString())
-    //             } else if (i == 3) {
-    //                 event.target.classList.add("mn-" + (currentRow + 1).toString() + "-" + (currentCol + 1).toString())
-    //                 clearPossibleMove('mn-' + (currentRow + 1).toString() + '-' + (currentCol + 1).toString())
-    //             }
-    //             break
-    //         }
-    //     }
-    
-    // }
     function move(event) {
+        /**
+         * @type {string[]}
+         */
+        let index = []
 
+        // find index of parent element class that contain mn- and split it to get its position in the board
+        event.target.parentElement.classList.forEach((/** @type {string} */ className) => {
+            if (className.includes("mn-")) {
+                index = className.split("-")
+            }
+        })
+
+        // index[1] = current row, index[2] = current column
+        let currentRow = parseInt(index[1]);
+        let currentCol = parseInt(index[2]);
+
+        // [0] = up left, [1] = up right, [2] = down left, [3] = down right
+        let findSelectedOrigin = [
+            findSelectedLocation(currentRow - 1, currentCol - 1),
+            findSelectedLocation(currentRow - 1, currentCol + 1),
+            findSelectedLocation(currentRow + 1, currentCol - 1),
+            findSelectedLocation(currentRow + 1, currentCol + 1),
+        ]
+
+        let playerNumber = NaN
+        // check which player turn it is
+        player1Turn ? playerNumber = 1 : playerNumber = 2
+
+        for (let i = 0; i < findSelectedOrigin.length; i++) {
+            if (findSelectedOrigin[i] == true) {
+                if (i == 0) {
+                    // change selected piece to movable space
+                    pieces[currentRow - 1][currentCol - 1] = 0
+
+                    // change movable space to selected piece
+                    pieces[currentRow][currentCol] = playerNumber
+                } else if (i == 1) {
+                    // change selected piece to movable space
+                    pieces[currentRow - 1][currentCol + 1] = 0
+
+                    // change movable space to selected piece
+                    pieces[currentRow][currentCol] = playerNumber
+                } else if (i == 2) {
+                    // change selected piece to movable space
+                    pieces[currentRow + 1][currentCol - 1] = 0
+
+                    // change movable space to selected piece
+                    pieces[currentRow][currentCol] = playerNumber
+                } else if (i == 3) {
+                    // change selected piece to movable space
+                    pieces[currentRow + 1][currentCol + 1] = 0
+
+                    // change movable space to selected piece
+                    pieces[currentRow][currentCol] = playerNumber
+                }
+                break
+            }
+        }
+        clearPossibleMove()
+        switchPlayer()
     }
+
 </script>
 <!-- Script end here -->
 
