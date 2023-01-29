@@ -4,6 +4,7 @@
     let src = {
         cat: "Logo.jpg",
         dog: "favicon.jpg",
+        king: "king.png",
     };
 
     let player1Turn = true;
@@ -38,11 +39,11 @@
     // let pieces = [
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
     //     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
     //     [0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     // ];
 
@@ -637,7 +638,14 @@
     }
 
     .king {
-        box-shadow: 0 0 10px 5px #3cff00;
+        /* box-shadow: 0 0 10px 5px #3cff00; */
+        /* blend image to center */
+        background-image: url("king.png");
+        background-position: center;
+        background-size: 50%;
+        background-repeat: no-repeat;
+        /* remove white on png*/
+        mix-blend-mode: screen;
     }
 
     span {
