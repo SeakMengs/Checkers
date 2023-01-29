@@ -637,17 +637,6 @@
         box-shadow: 0 0 10px 5px #ffffff;
     }
 
-    .king {
-        /* box-shadow: 0 0 10px 5px #3cff00; */
-        /* blend image to center */
-        background-image: url("king.png");
-        background-position: center;
-        background-size: 50%;
-        background-repeat: no-repeat;
-        /* remove white on png*/
-        mix-blend-mode: screen;
-    }
-
     span {
         font-size: 2rem;
         font-weight: 700;
