@@ -33,12 +33,18 @@
 		}
 
 		.king {
-			background-image: url("king.png");
-			background-position: center;
-			background-size: 50%;
-			background-repeat: no-repeat;
-			/* remove white on png*/
-			mix-blend-mode: screen;
+			/* box-shadow: 0 0 10px 5px yellowgreen; */
+			animation: rgb 2s infinite alternate;
+		}
+
+		@keyframes rgb {
+			from {
+				box-shadow: 0 0 10px 5px red;
+			}
+
+			to {
+				box-shadow: 0 0 10px 5px sandybrown;
+			}
 		}
 
 		/* responsive for mobile */
