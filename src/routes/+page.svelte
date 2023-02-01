@@ -583,7 +583,8 @@
         {/each}
     </div>
     <span>Player one {playerOneScore} - {playerTwoScore} Player two</span>
-    <button on:click={resetGame} class="restart">Restart the game</button>
+    <button on:click={resetGame} class="game-btn">Restart the game </button>
+    <a href="https://www.youtube.com/watch?v=MOW9k_C4vFU&ab_channel=wikiHow" target="blank" class="game-btn">How to play</a>
 </div>
 <!-- HTML end here -->
 
@@ -603,8 +604,7 @@
         display: grid;
         grid-template-columns: repeat(10, 5rem);
         border-radius: 0.5rem solid white;
-        box-shadow: 0 0 10px 5px #ffffff;
-        animation: rgbBoard 2s infinite alternate;
+        box-shadow: 0 0 20px 5px #202020;
     }
 
     .cell {
@@ -647,7 +647,7 @@
         margin-bottom: 1rem;
     }
 
-    .restart {
+    .game-btn {
         font-size: 2rem;
         text-align: center;
         display: inline-block;
@@ -664,22 +664,15 @@
         box-shadow: 0 .2em gray; 
         cursor: pointer;
         user-select: none;
+        text-decoration: none;
+        border: none;
+        font-family: 'Courier New', Courier, monospace;
     }
 
-    .restart:active {
+    .game-btn:active {
         box-shadow: none;
         position: relative;
         top: .2em;
     }
-
-    @keyframes rgbBoard {
-			from {
-				box-shadow: 0 0 15px 5px #f89381;
-			}
-
-			to {
-				box-shadow: 0 0 15px 5px #a4a4c0;
-			}   
-		}
 </style>
 <!-- Style end here  -->
