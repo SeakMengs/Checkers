@@ -34,15 +34,15 @@
         [2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
     ];
 
-    // set up win
+    // set up win (for debugging)
     // let pieces = [
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //     [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     //     [0, 0, 0, 0, 0, , 0, 0, 0, 0],
-    //     [0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 4, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 4, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //     [0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     // ];
 
@@ -74,16 +74,6 @@
         checkPlayerScore();
     }
 
-    function checkPlayerWon() {
-        if (playerOneScore == 0) {
-            alert("Player 2 Won!");
-            resetGame();
-        } else if (playerTwoScore == 0) {
-            alert("Player 1 Won!");
-            resetGame();
-        }
-    }
-
     // switch player turn
     function switchPlayer() {
         player1Turn = !player1Turn;
@@ -102,10 +92,6 @@
                 }
             }
         }
-
-        setTimeout(() => {
-            checkPlayerWon();
-        }, 100);
     }
 
     // remove all possible move class
@@ -169,7 +155,7 @@
      * @param {any} element
      * @param {string | undefined} [move]
      */
-    function checkKillable(element, move) {
+    function checkCanKill(element, move) {
         let index = element.classList[1].split("-");
         let newElement = null;
 
@@ -212,8 +198,8 @@
                  */
                 let index = [];
 
-                if (checkKillable(element, move) != false) {
-                    element = checkKillable(element, move);
+                if (checkCanKill(element, move) != false) {
+                    element = checkCanKill(element, move);
                     element = element[0];
                 }
 
@@ -552,15 +538,23 @@
         checkPlayerScore();
     }
 </script>
+
 <!-- Script end here -->
 
 <!-- HTML goes here -->
 <div class="container">
-    <div class="Content">
-        <span>Player {player1Turn == true ? "one" : "two"}'s turn</span>
+    <div class="content">
+        <span class:turn={!player1Turn}>Player one</span>
+        <span class="wall">|</span>
+        <span class:turn={player1Turn}>Player Two</span>
     </div>
     <!-- render board and piece -->
     <div class="board">
+        {#if playerOneScore == 0}
+            <span class="playerWinMessage"> Player two wins! </span>
+        {:else if playerTwoScore == 0}
+            <span class="playerWinMessage"> Player one wins! </span>
+        {/if}
         {#each BOARD as row, i}
             {#each row as col, j}
                 <div class="cell mn-{i}-{j}" class:dark={BOARD[i][j]}>
@@ -585,10 +579,20 @@
     </div>
     <span>Player one {playerOneScore} - {playerTwoScore} Player two</span>
     <button on:click={resetGame} class="game-btn">Restart the game </button>
-    <a href="https://www.youtube.com/watch?v=MOW9k_C4vFU&ab_channel=wikiHow" target="blank" class="game-btn">How to play</a>
+    <a
+        href="https://www.youtube.com/watch?v=MOW9k_C4vFU&ab_channel=wikiHow"
+        target="blank"
+        class="game-btn">How to play</a
+    >
+    <div class="github-source">
+        <img class="profile" src="https://avatars.githubusercontent.com/u/54373229?v=4" alt="profile">
+        <a
+        href="https://github.com/SeakMengs/Checker"
+        target="blank"
+        class="credit">Created by @Seakmeng | Click to see source code</a>
+    </div>
 </div>
 <!-- HTML end here -->
-
 
 
 <!-- Style goes here  -->
@@ -602,6 +606,7 @@
     }
 
     .board {
+        position: relative;
         display: grid;
         grid-template-columns: repeat(10, 5rem);
         border-radius: 0.5rem solid white;
@@ -629,13 +634,43 @@
 
     .player-1 {
         /* background-color: rgb(164, 164, 192); */
-        background: radial-gradient(circle at 65% 15%, white 1px, #4f7272 3%, #a4a4c0 60%, black 100%);
+        background: radial-gradient(
+            circle at 65% 15%,
+            white 1px,
+            #4f7272 3%,
+            #a4a4c0 60%,
+            black 100%
+        );
     }
 
     .player-2 {
         /* background-color: rgb(248, 147, 129); */
         /* background: radial-gradient(circle at 65% 15%, white 1px, #f89381 3%, #f89381 60%, black 100%); */
-        background: radial-gradient(circle at 65% 15%, white 1px, rgb(124 71 61) 3%, #f89381 60%, black 100%)
+        background: radial-gradient(
+            circle at 65% 15%,
+            white 1px,
+            rgb(124 71 61) 3%,
+            #f89381 60%,
+            black 100%
+        );
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .wall {
+        font-size: 50px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .turn {
+        color: rgba(245,222,179, 0.1);
     }
 
     .selected {
@@ -645,16 +680,16 @@
     span {
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin: 1rem;
     }
 
     .game-btn {
         font-size: 2rem;
         text-align: center;
         display: inline-block;
-        margin:5px;
+        margin: 5px;
         font-weight: bold;
-        padding: 10px 0 10px 10px ;
+        padding: 10px 0 10px 10px;
         background-color: lightgray;
         text-shadow: -1px -1px black, 1px 1px white;
         color: gray;
@@ -662,18 +697,61 @@
         -moz-border-radius: 7px;
         -o-border-radius: 7px;
         border-radius: 7px;
-        box-shadow: 0 .2em gray; 
+        box-shadow: 0 0.2em gray;
         cursor: pointer;
         user-select: none;
         text-decoration: none;
         border: none;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
     }
 
     .game-btn:active {
         box-shadow: none;
         position: relative;
-        top: .2em;
+        top: 0.2em;
+    }
+
+    /* make a winner drop down animation and give playerWin class background on top of all element */
+    .playerWinMessage {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 5.4rem;
+        font-weight: 700;
+        animation: playerWin 2s ease;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        text-align: center;
+    }
+
+    .github-source {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .credit {
+        padding: 1rem;
+        color: wheat;
+        text-decoration: none;
+    }
+
+    .profile {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    @keyframes playerWin {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -50%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
     }
 </style>
 <!-- Style end here  -->
