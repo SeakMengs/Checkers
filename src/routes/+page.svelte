@@ -1,11 +1,10 @@
 <!-- Script goes here -->
 <script>
     // image source
-    let src = {
-        cat: "Logo.jpg",
-        dog: "favicon.jpg",
-        king: "king.png",
-    };
+    // let src = {
+    //     logo: "logo.jpg",
+    //     king: "king.png",
+    // };
 
     let player1Turn = true;
     let playerOneScore = 0;
@@ -402,7 +401,7 @@
         // check which player turn it is
         player1Turn ? (playerNumber = 1) : (playerNumber = 2);
 
-        // if not king move then check if it's a normal move
+        // if not king then give the piece the player number
         pieces[currentRow][currentCol] = playerNumber;
 
         return false;
@@ -447,7 +446,7 @@
         for (let i = 0; i < findSelectedOrigin.length; i++) {
             if (findSelectedOrigin[i] == true) {
                 if (i == 0) {
-                    // check if king move
+                    // check if king move (up left)
                     let isKing = isKingMove(currentRow, currentCol, -1, -1);
 
                     // change selected piece to movable space
@@ -457,7 +456,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 1) {
-                    // check if king move
+                    // check if king move (up right)
                     let isKing = isKingMove(currentRow, currentCol, -1, 1);
 
                     // change selected piece to movable space
@@ -467,7 +466,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 2) {
-                    // check if king move
+                    // check if king move (down left)
                     let isKing = isKingMove(currentRow, currentCol, 1, -1);
 
                     // change selected piece to movable space
@@ -477,7 +476,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 3) {
-                    // check if king move
+                    // check if king move (down right)
                     let isKing = isKingMove(currentRow, currentCol, 1, 1);
 
                     // change selected piece to movable space
@@ -487,7 +486,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 4) {
-                    // check if king move
+                    // check if king move (up up left left)
                     let isKing = isKingMove(currentRow, currentCol, -2, -2);
 
                     // change selected piece to movable space
@@ -500,7 +499,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 5) {
-                    // check if king move
+                    // check if king move (up up right right)
                     let isKing = isKingMove(currentRow, currentCol, -2, 2);
 
                     // change selected piece to movable space
@@ -513,7 +512,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 6) {
-                    // check if king move
+                    // check if king move (down down left left)
                     let isKing = isKingMove(currentRow, currentCol, 2, -2);
 
                     // change selected piece to movable space
@@ -526,7 +525,7 @@
                         checkKing(currentRow, currentCol);
                     }
                 } else if (i == 7) {
-                    // check if king move
+                    // check if king move (down down right right)
                     let isKing = isKingMove(currentRow, currentCol, 2, 2);
 
                     // change selected piece to movable space
