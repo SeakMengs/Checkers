@@ -723,6 +723,7 @@
         background-color: rgba(0, 0, 0, 0.9);
         width: 100%;
         text-align: center;
+        margin: 0;
     }
 
     .github-source {
