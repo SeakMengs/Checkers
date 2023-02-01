@@ -584,13 +584,10 @@
         target="blank"
         class="game-btn">How to play</a
     >
-    <div class="github-source">
+    <a class="github-source credit" href="https://github.com/SeakMengs/Checker" target="blank">
         <img class="profile" src="https://avatars.githubusercontent.com/u/54373229?v=4" alt="profile">
-        <a
-        href="https://github.com/SeakMengs/Checker"
-        target="blank"
-        class="credit">Created by @Seakmeng | Click to see source code</a>
-    </div>
+        <a class="credit" href="https://github.com/SeakMengs/Checker" target="blank">Created by @Seakmeng | Click to see source code</a>
+    </a>
 </div>
 <!-- HTML end here -->
 
