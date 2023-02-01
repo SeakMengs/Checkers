@@ -678,6 +678,7 @@
         font-size: 2rem;
         font-weight: 700;
         margin: 1rem;
+        user-select: none;
     }
 
     .game-btn {
