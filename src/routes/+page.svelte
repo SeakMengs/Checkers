@@ -626,11 +626,14 @@
     }
 
     .player-1 {
-        background-color: rgb(164, 164, 192);
+        /* background-color: rgb(164, 164, 192); */
+        background: radial-gradient(circle at 65% 15%, white 1px, #4f7272 3%, #a4a4c0 60%, black 100%);
     }
 
     .player-2 {
-        background-color: rgb(248, 147, 129);
+        /* background-color: rgb(248, 147, 129); */
+        /* background: radial-gradient(circle at 65% 15%, white 1px, #f89381 3%, #f89381 60%, black 100%); */
+        background: radial-gradient(circle at 65% 15%, white 1px, rgb(124 71 61) 3%, #f89381 60%, black 100%)
     }
 
     .selected {
