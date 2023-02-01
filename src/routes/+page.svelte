@@ -583,7 +583,7 @@
         {/each}
     </div>
     <span>Player one {playerOneScore} - {playerTwoScore} Player two</span>
-    <button on:click={resetGame}>Restart the game</button>
+    <button on:click={resetGame} class="restart">Restart the game</button>
 </div>
 <!-- HTML end here -->
 
@@ -604,6 +604,7 @@
         grid-template-columns: repeat(10, 5rem);
         border-radius: 0.5rem solid white;
         box-shadow: 0 0 10px 5px #ffffff;
+        animation: rgbBoard 2s infinite alternate;
     }
 
     .cell {
@@ -645,5 +646,40 @@
         font-weight: 700;
         margin-bottom: 1rem;
     }
+
+    .restart {
+        font-size: 2rem;
+        text-align: center;
+        display: inline-block;
+        margin:5px;
+        font-weight: bold;
+        padding: 10px 0 10px 10px ;
+        background-color: lightgray;
+        text-shadow: -1px -1px black, 1px 1px white;
+        color: gray;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        -o-border-radius: 7px;
+        border-radius: 7px;
+        box-shadow: 0 .2em gray; 
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .restart:active {
+        box-shadow: none;
+        position: relative;
+        top: .2em;
+    }
+
+    @keyframes rgbBoard {
+			from {
+				box-shadow: 0 0 15px 5px #f89381;
+			}
+
+			to {
+				box-shadow: 0 0 15px 5px #a4a4c0;
+			}   
+		}
 </style>
 <!-- Style end here  -->
