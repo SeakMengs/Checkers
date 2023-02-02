@@ -628,6 +628,8 @@
         height: 4rem;
         border-radius: 100%;
         border: none;
+        outline: none;
+        animation: rotate 0.5s linear;
     }
 
     .player-1 {
@@ -751,6 +753,15 @@
         100% {
             opacity: 1;
             transform: translate(-50%, -50%);
+        }
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
         }
     }
 
