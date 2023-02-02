@@ -613,7 +613,7 @@
     .cell {
         width: 5rem;
         height: 5rem;
-        /* background-color: #ee1b24; */
+        background-color: #ee1b24;
         display: flex;
         justify-content: center;
         align-items: center;
