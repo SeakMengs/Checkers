@@ -687,7 +687,7 @@
         display: inline-block;
         margin: 5px;
         font-weight: bold;
-        padding: 10px 0 10px 10px;
+        padding: 10px 10px 10px 10px;
         background-color: lightgray;
         text-shadow: -1px -1px black, 1px 1px white;
         color: gray;
@@ -752,5 +752,47 @@
             transform: translate(-50%, -50%);
         }
     }
+
+    /* responsive for mobile */
+    @media only screen and (max-width: 600px) {
+        .board {
+            grid-template-columns: repeat(10, 4rem);
+        }
+        .pieces {
+            width: 3rem;
+            height: 3rem;
+        }
+        .cell {
+            width: 4rem;
+            height: 4rem;
+        }
+        .wall {
+            font-size: 40px;
+        }
+        .turn {
+            font-size: 1.5rem;
+        }
+        .game-btn {
+            font-size: 1.5rem;
+        }
+        .playerWinMessage {
+            font-size: 4rem;
+        }
+        .credit {
+            font-size: 10px;
+        }
+        .movable {
+            width: 3rem;
+            height: 3rem;
+        }
+        .profile {
+            width: 40px;
+            height: 40px;
+        }
+        span {
+            font-size: 1.5rem;
+        }
+    }
+
 </style>
 <!-- Style end here  -->
