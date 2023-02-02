@@ -1,18 +1,7 @@
-# create-svelte
-
+# Checker - Svelte
+Checkers is a classic board game made with the Svelte framework. It features intuitive controls, allowing you to easily show possible moves, move pieces, and capture your opponent's pieces. The game is fast-paced and exciting, with a simple yet challenging strategy.
 Demo website [`Yato-Checker`](https://yatochecker.netlify.app/).
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
 
 ## Developing
 
@@ -39,4 +28,4 @@ You can preview the production build with `npm run preview`.
 
 ## Preview
 
-![image](https://user-images.githubusercontent.com/54373229/216049795-672bf699-aac6-4152-8405-024e2831880c.png)
+<img width="956" alt="image" src="https://user-images.githubusercontent.com/54373229/216418612-4018edf9-4803-4685-98d1-a39ce6579ff2.png">
