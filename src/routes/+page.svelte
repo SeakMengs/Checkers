@@ -319,12 +319,12 @@
     }
 
     /**
-     * @param {any} m
-     * @param {any} n
+     * @param {any} curRow
+     * @param {any} curCol
      */
-    function findSelectedLocation(m, n) {
+    function findSelectedLocation(curRow, curCol) {
         // get their children
-        let element = document.querySelector(`.mn-${m}-${n}`)?.children[0];
+        let element = document.querySelector(`.mn-${curRow}-${curCol}`)?.children[0];
 
         // check if it's a selected piece
         if (element != null) {
