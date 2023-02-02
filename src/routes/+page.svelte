@@ -613,13 +613,14 @@
     .cell {
         width: 5rem;
         height: 5rem;
-        background-color: #ee1b24;
+        /* background-color: #ee1b24; */
+        background-color: rgba(237, 61, 67, 0.80);
         display: flex;
         justify-content: center;
         align-items: center;
     }
     .dark {
-        background-color: #251e21;
+        background-color: rgba(37, 30, 33, 0.80);
     }
 
     .pieces {
