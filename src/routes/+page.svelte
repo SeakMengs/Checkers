@@ -586,7 +586,7 @@
     >
     <a class="github-source credit" href="https://github.com/SeakMengs/Checker" target="blank">
         <img class="profile" src="https://avatars.githubusercontent.com/u/54373229?v=4" alt="profile">
-        <a class="credit" href="https://github.com/SeakMengs/Checker" target="blank">Created by @Seakmeng | Click to see source code</a>
+        <a class="credit" href="https://github.com/SeakMengs/Checkers" target="blank">Created by @Seakmeng | Click to see source code</a>
     </a>
 </div>
 <!-- HTML end here -->
